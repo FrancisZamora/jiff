@@ -22,9 +22,9 @@ options.onConnect = function() {
   var sum = shares[1];
   
   for(var i = 2; i <= jiff_instance.party_count; i++)
-    sum = sum.amortized_and(shares[i]);
+    sum = sum.amortized_or(shares[i]);
     
-  sum.open(function(r) { console.log(r.toString(10)); } );
+  sum.amortizedOpen(function(r) { console.log(r.toString(10)); } );
 }
 
 var base_instance = require('../../lib/jiff-client').make_jiff("http://localhost:8080", computation_id, options);
