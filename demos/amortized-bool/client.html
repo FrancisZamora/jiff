@@ -67,10 +67,13 @@
         var shares = jiff_instance.share(input);
 
         var or = shares[1];
-        for(var i = 2; i <= jiff_instance.party_count; i++)
-          or = or.amortized_or(shares[i]);
+        for(var i = 2; i <= jiff_instance.party_count; i++) {
+          or = or.amortized_or(shares[i]); 
+        }
 
-        or.open(handleResult);          
+        // or = or.revert();
+
+        or.amortizedOpen(handleResult);          
       }
 
       function handleResult(result) {
