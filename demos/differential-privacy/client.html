@@ -2,18 +2,7 @@
   <head>
     <title>Vote under MPC</title>
     <style>
-      .error {
-        color: #FF0000;
-      }
-      .borderr {
-        border:3px solid black;
-      }
-      .inlinee {
-        display:inline-block;
-      }
-      .spacingSeparator {
-        width:20px;
-      }
+
     </style>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
@@ -22,6 +11,7 @@
     <script src="/lib/jiff-client.js"></script>
     <script src="./gaussian.js"></script>
     <script src="./party.js"></script>
+    <script src="./display.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Timmana" rel="stylesheet">
@@ -34,19 +24,24 @@
 
   </head>
   <body>
-    <div>
+    <div class="card" id="titleCard">
       <h1 id="title">JIFF</h1>
+      <h2 id="subtitle">a differential privacy demo</h2>
       <div class="row connect">
-        <label for="computation_id">Computation ID </label><input id="computation_id"></input><br/><br/>
-        <label for="count">Party Count <label> <input id="count" pattern="[0-9]*"> &nbsp; 
+        <div class="col">
+          <label for="computation_id">Computation ID </label><br/><input id="computation_id"></input><br/><br/>
+        </div>
+        <div class="col">
+          <label for="count">Party Count </label> <br/><input id="count" pattern="[0-9]*"> &nbsp; 
+        </div>
         </br>
       </div>
-        <button id="connectButton" onclick="connect();">Connect</button>
+        <button class="btn" id="connectButton" onclick="connect();">Connect</button>
   
     </div>
     
-    <hr/>
-    <div>
+
+    <div class="card" id="inputCard">
       <h1>Computing an Average</h1>
         <div>
           <label><input id="input" type="text" name="input"/> 
@@ -56,21 +51,21 @@
       <div id="output"></div>
     </div>
 
-    <div id="output"></div>
-    <div class="borderr">
-      <div class="inlinee">
-        <div style="width:300px; height:300px;">
-          <canvas id="chart1" width="400" height="400"></canvas>
+    <div class="card" id="output graphCard">
+      <div class="graphBorder">
+        <div class="graphInline">
+          <div class="canvasDiv" >
+            <canvas id="chart1"></canvas>
+          </div>
+        </div>
+      <div class="graphInline spacingSeparator"></div>
+      <div class="graphInline">
+        <div class="canvasDiv">
+          <canvas id="chart2"></canvas>
         </div>
       </div>
-      <div class="inlinee spacingSeparator"></div>
-      <div class="inlinee">
-        <div style="width:300px; height:300px;">
-          <canvas id="chart2" width="400" height="400"></canvas>
-        </div>
-      </div>
-      <script src="display.js"></script>
     </div>
+  </div>
 
   </body>
 </html>

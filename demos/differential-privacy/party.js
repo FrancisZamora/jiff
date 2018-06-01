@@ -26,6 +26,9 @@
             hostanme = hostname.substring(0, hostname.indexOf(":"));
           hostname = hostname + ":" + port;
           jiff_instance = jiff.make_jiff(hostname, computation_id, options);
+
+          $('#inputCard').show();
+
         }
       }
 
@@ -79,7 +82,6 @@
       }
 
       function handleResult(results) {
-        console.log('results',results)
 
         for(var i = 0; i < results.length; i++) {
           if(results[i] == null) continue;
