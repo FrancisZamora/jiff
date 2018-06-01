@@ -1,3 +1,64 @@
+let chart1;
+let chart2;
+
+function initGraph() {
+
+    const ctx1 = document.getElementById("chart1").getContext('2d');
+    chart1 = new Chart(ctx1, {
+        type: 'line',
+        data: {
+            datasets: [datasetPoints1, datasetLines1]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: minY1,
+                        max: maxY1
+                    }
+                }],
+                xAxes: [{
+                    type: 'linear',
+                    position: 'bottom',
+                    ticks: {
+                        min: minX1,
+                        max: maxX1,
+                        maxTicksLimit: 20
+                    }
+                }]
+            }
+        }
+    });
+
+    const ctx2 = document.getElementById("chart2").getContext('2d');
+    chart2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            datasets: [datasetPoints2, datasetLines2]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: minY2,
+                        max: maxY2
+                    }
+                }],
+                xAxes: [{
+                    type: 'linear',
+                    position: 'bottom',
+                    ticks: {
+                        min: minX2,
+                        max: maxX2,
+                        maxTicksLimit: 20
+                    }
+                }]
+            }
+        }
+    });
+}
+
+
 // the limits of the graph
 let minX1 = 0;
 let maxX1 = 10;
@@ -23,32 +84,6 @@ const datasetLines1 = {
     borderColor:"rgb(0,0,0)",
     pointRadius:0.1
 };
-const ctx1 = document.getElementById("chart1").getContext('2d');
-const chart1 = new Chart(ctx1, {
-    type: 'line',
-    data: {
-        datasets: [datasetPoints1, datasetLines1]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    min: minY1,
-                    max: maxY1
-                }
-            }],
-            xAxes: [{
-                type: 'linear',
-                position: 'bottom',
-                ticks: {
-                    min: minX1,
-                    max: maxX1,
-                    maxTicksLimit: 20
-                }
-            }]
-        }
-    }
-});
 
 
 // the limits of the graph
@@ -76,32 +111,8 @@ const datasetLines2 = {
     borderColor:"rgb(0,0,0)",
     pointRadius:0.1
 };
-const ctx2 = document.getElementById("chart2").getContext('2d');
-const chart2 = new Chart(ctx2, {
-    type: 'line',
-    data: {
-        datasets: [datasetPoints2, datasetLines2]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    min: minY2,
-                    max: maxY2
-                }
-            }],
-            xAxes: [{
-                type: 'linear',
-                position: 'bottom',
-                ticks: {
-                    min: minX2,
-                    max: maxX2,
-                    maxTicksLimit: 20
-                }
-            }]
-        }
-    }
-});
+
+
 
 /**
  * Function takes the noisy point and the non-noisy point, displays both on the two graphs
@@ -174,20 +185,4 @@ const displayPointsOnTwoGraphs = function(points) {
     // finally update the charts
     chart1.update();
     chart2.update();
-}
-
-const restrict = function(x, y) {
-    if(x < minX || x > maxX) {
-        alert("Please input a value between " + minX + " and " + maxX + ".");
-        return 1;
-    }
-    if(y < minY || y > maxY) {
-        alert("Please input a value between " + minY + " and " + maxY + ".");
-        return 1;
-    }
-    if(x != Math.floor(x) || y != Math.floor(y)) {
-        alert("Please input whole numbers.");
-        return 1;
-    }
-    return 0;
 }

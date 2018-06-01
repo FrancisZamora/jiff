@@ -3,6 +3,10 @@
     <title>Vote under MPC</title>
     <style>
 
+      .centerDivs {
+        vertical-align: middle; 
+        text-align: center;
+      }
     </style>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
@@ -19,19 +23,16 @@
 
     <link rel="stylesheet" href="./style.css">
 
-
-    
-
   </head>
   <body>
     <div class="card" id="titleCard">
       <h1 id="title">JIFF</h1>
       <h2 id="subtitle">a differential privacy demo</h2>
       <div class="row connect">
-        <div class="col">
+        <div class="col centerDivs">
           <label for="computation_id">Computation ID </label><br/><input id="computation_id"></input><br/><br/>
         </div>
-        <div class="col">
+        <div class="col centerDivs">
           <label for="count">Party Count </label> <br/><input id="count" pattern="[0-9]*"> &nbsp; 
         </div>
         </br>
@@ -58,14 +59,13 @@
             <canvas id="chart1"></canvas>
           </div>
         </div>
-      <div class="graphInline spacingSeparator"></div>
-      <div class="graphInline">
-        <div class="canvasDiv">
-          <canvas id="chart2"></canvas>
+        <div class="graphInline spacingSeparator"></div>
+        <div class="graphInline">
+          <div class="canvasDiv">
+            <canvas class="graphCanvas" id="chart2"></canvas>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
   </body>
 </html>

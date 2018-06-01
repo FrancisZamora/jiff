@@ -22,8 +22,6 @@
             hostname = "http://" + hostname;
           if(hostname.endsWith("/"))
             hostname = hostname.substring(0, hostname.length-1);
-          if(hostname.indexOf(":") > -1)
-            hostanme = hostname.substring(0, hostname.indexOf(":"));
           hostname = hostname + ":" + port;
           jiff_instance = jiff.make_jiff(hostname, computation_id, options);
 
@@ -41,9 +39,9 @@
 
         const noisyData = value + noise;
 
+        initGraph( {raw:{x:jiff_instance.id, y:value},noisy:{x:jiff_instance.id, y:noisyData}} );
+
         MPC(noisyData);
-        
-    
       }
 
       function generateNoise() {
