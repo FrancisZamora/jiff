@@ -38,7 +38,6 @@
         const noise = generateNoise();
 
         const noisyData = value + noise;
-        console.log(noisyData, noise);
 
         MPC(noisyData);
         
@@ -74,6 +73,7 @@
         $("#output").append("<p>Starting...</p>");
 
         const data = jiff_instance.share(input);
+
         const totalSum = sumShares(data);
 
         jiff_instance.open(totalSum).then(handleResult);

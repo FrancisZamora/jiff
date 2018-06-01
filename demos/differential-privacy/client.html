@@ -14,22 +14,36 @@
     <script src="./party.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Timmana" rel="stylesheet">
+
+
     <link rel="stylesheet" href="./style.css">
+
+
     
 
   </head>
   <body>
-    <h1>Connect JIFF</h1>
-    <label for="computation_id">Computation ID</label><input id="computation_id"></input><br/><br/>
-    <label for="count">Party Count<label> <input id="count" pattern="[0-9]*"> &nbsp; <button id="connectButton" onclick="connect();">Connect</button>
-    <br/><br/>
-    <hr/>
-    <h1>Who Did You Vote for in 2016?</h1>
     <div>
-      <label><input id="input" type="text" name="input"/> 
-      <br/>
-      <button onclick="submit()" id="voteButton" disabled="disabled">submit</button>
+      <h1 id="title">JIFF</h1>
+      <div class="row connect">
+        <label for="computation_id">Computation ID </label><input id="computation_id"></input><br/><br/>
+        <label for="count">Party Count <label> <input id="count" pattern="[0-9]*"> &nbsp; 
+        </br>
+      </div>
+        <button id="connectButton" onclick="connect();">Connect</button>
+  
     </div>
-    <div id="output"></div>
+    
+    <hr/>
+    <div>
+      <h1>Computing an Average</h1>
+        <div>
+          <label><input id="input" type="text" name="input"/> 
+          <br/>
+          <button onclick="submit()" id="voteButton" disabled="disabled">submit</button>
+        </div>
+      <div id="output"></div>
+    </div>
   </body>
 </html>
