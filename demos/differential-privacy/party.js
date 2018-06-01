@@ -26,20 +26,21 @@
             hostanme = hostname.substring(0, hostname.indexOf(":"));
           hostname = hostname + ":" + port;
           jiff_instance = jiff.make_jiff(hostname, computation_id, options);
+          jiff_instance = jiff_bignumber.make_jiff(jiff_instance, options)
+          jiff_instance = jiff_fixedpoint.make_jiff(jiff_instance, { decimal_digits: 5, integral_digits: 5}); // Max bits after decimal allowed
 
           $('#inputCard').show();
 
         }
       }
 
-
-
       function submit() {
 
         const value = parseInt(document.getElementById('input').value);
-        const noise = generateNoise();
+        // const noise = generateNoise();
 
-        const noisyData = value + noise;
+        const noisyData = value;
+        console.log(noisyData)
 
         MPC(noisyData);
         
@@ -53,7 +54,7 @@
 
         const rand = distribution.ppf(Math.random());
 
-        return Math.floor(rand);
+        return rand;
       }
 
       function calcVariance(epsilon, del, n) {
@@ -94,3 +95,39 @@
       function handleError() {
         console.log("Error in open_all");
       }
+
+
+
+
+// var party_count = process.argv[3];
+// if(party_count == null) party_count = 2;
+// else party_count = parseInt(party_count);
+
+// var computation_id = process.argv[4];
+// if(computation_id == null) computation_id = 'test-fixed';
+
+// var party_id = process.argv[5];
+// if(party_id != null) party_id = parseInt(party_id, 10);
+
+// var BigNumber = require('bignumber.js');
+// var jiff_instance;
+
+// var options = {party_count: party_count, party_id: party_id, Zp: new BigNumber(32416190071), autoConnect: false };
+// options.onConnect = function() {
+//   try {
+//     var shares = jiff_instance.share(input);
+
+//     var sum = shares[1];
+//     for(var i = 2; i <= jiff_instance.party_count; i++)
+//       sum = sum.sadd(shares[i]);
+
+//     sum.open(function(r) { console.log(r.toString(10)); jiff_instance.disconnect(); } );
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
+
+// var base_instance = require('../../lib/jiff-client').make_jiff("http://localhost:8080", computation_id, options);
+// base_instance = require('../../lib/ext/jiff-client-bignumber').make_jiff(base_instance, options)
+// jiff_instance = require('../../lib/ext/jiff-client-fixedpoint').make_jiff(base_instance, { decimal_digits: 5, integral_digits: 5});
+// jiff_instance.connect();
