@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var jiff_instance = require('../../lib/jiff-server').make_jiff(http, {logs:false});
+var jiff_instance = require('../../lib/jiff-server').make_jiff(http, {logs:true});
 
 // Define a computation with id '1' and a maximum of 3 participants.
 jiff_instance.totalparty_map['1'] = 3;
@@ -19,5 +19,6 @@ http.listen(8080, function() {
   console.log('listening on *:8080');
 });
 
-console.log("Direct your browser to *:8080/demos/div/client.html.");
-console.log()
+console.log("Direct your browser to *:8080/demos/sum/client.html.");
+console.log("To run a server-based party: node index.js demos/sum/party");
+console.log();
