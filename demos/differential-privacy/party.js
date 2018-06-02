@@ -1,102 +1,115 @@
 
-      var jiff_instance;
+var jiff_instance;
 
-      function connect() {
-        $('#connectButton').prop('disabled', true);
-        var computation_id = $('#computation_id').val();
-        var party_count = parseInt($('#count').val());
+function connect() {
+  $('#connectButton').prop('disabled', true);
+  var computation_id = $('#computation_id').val();
+  var party_count = parseInt($('#count').val());
 
-        if(isNaN(party_count)) {
-          $("#output").append("<p class='error'>Party count must be a valid number!</p>");
-          $('#connectButton').prop('disabled', false);
-        } else {
-          var options = { party_count: party_count};
-          options.onError = function(error) { $("#output").append("<p class='error'>"+error+"</p>"); };
-          options.onConnect = function() { $("#output").append("<p>All parties Connected!</p>"); $("#voteButton").attr("disabled", false); };
+  if(isNaN(party_count)) {
+    $("#output").append("<p class='error'>Party count must be a valid number!</p>");
+    $('#connectButton').prop('disabled', false);
+  } else {
+    var options = { party_count: party_count};
+    options.onError = function(error) { $("#output").append("<p class='error'>"+error+"</p>"); };
+    options.onConnect = function() { $("#output").append("<p>All parties Connected!</p>"); $("#voteButton").attr("disabled", false); };
 
-          var hostname = window.location.hostname.trim();
-          var port = window.location.port;
-          if(port == null || port == '') 
-            port = "80";
-          if(!(hostname.startsWith("http://") || hostname.startsWith("https://")))
-            hostname = "http://" + hostname;
-          if(hostname.endsWith("/"))
-            hostname = hostname.substring(0, hostname.length-1);
-          if(hostname.indexOf(":") > -1)
-            hostanme = hostname.substring(0, hostname.indexOf(":"));
-          hostname = hostname + ":" + port;
-          jiff_instance = jiff.make_jiff(hostname, computation_id, options);
-          jiff_instance = jiff_bignumber.make_jiff(jiff_instance, options)
-          jiff_instance = jiff_fixedpoint.make_jiff(jiff_instance, { decimal_digits: 5, integral_digits: 5}); // Max bits after decimal allowed
+    var hostname = window.location.hostname.trim();
+    var port = window.location.port;
+    if(port == null || port == '') 
+      port = "80";
+    if(!(hostname.startsWith("http://") || hostname.startsWith("https://")))
+      hostname = "http://" + hostname;
+    if(hostname.endsWith("/"))
+      hostname = hostname.substring(0, hostname.length-1);
+    if(hostname.indexOf(":") > -1)
+      hostanme = hostname.substring(0, hostname.indexOf(":"));
+    hostname = hostname + ":" + port;
+    jiff_instance = jiff.make_jiff(hostname, computation_id, options);
+    jiff_instance = jiff_bignumber.make_jiff(jiff_instance, options)
+    jiff_instance = jiff_fixedpoint.make_jiff(jiff_instance, { decimal_digits: 5, integral_digits: 5}); // Max bits after decimal allowed
 
-          $('#inputCard').show();
+    $('#inputCard').show();
 
-        }
-      }
+  }
+}
 
-      function submit() {
+function submit() {
 
-        const value = parseInt(document.getElementById('input').value);
-        // const noise = generateNoise();
+  const value = parseInt(document.getElementById('input').value);
+  // const noise = generateNoise();
 
-        const noisyData = value;
-        console.log(noisyData)
+  const noisyData = value;
+  console.log(noisyData)
 
-        MPC(noisyData);
-        
-    
-      }
+  MPC(noisyData);
+  
 
-      function generateNoise() {
-        const variance = calcVariance(0.5, 1, jiff_instance.party_count);
+}
 
-        const distribution = gaussian(jiff_instance.party_count, variance);
+function generateNoise() {
+  const variance = calcVariance(0.5, 1, jiff_instance.party_count);
 
-        const rand = distribution.ppf(Math.random());
+  const distribution = gaussian(jiff_instance.party_count, variance);
 
-        return rand;
-      }
+  const rand = distribution.ppf(Math.random());
 
-      function calcVariance(epsilon, del, n) {
-        return ((2 * Math.log(1.25/del)) * (((2 * n) - 1) / (epsilon * epsilon))) / n;
-      }
+  return rand;
+}
 
-      function sumShares(shares) {
-        var sum = shares["1"];
+function calcVariance(epsilon, del, n) {
+  return ((2 * Math.log(1.25/del)) * (((2 * n) - 1) / (epsilon * epsilon))) / n;
+}
 
-        for (var i = 2; i <= Object.keys(shares).length; i++) {
-          sum = sum.add(shares[i])
-        }   
-        
-        return sum;
-      }
+function sumShares(shares) {
+  var sum = shares["1"];
 
-      function MPC(input) {
-        $("#sumButton").attr("disabled", true);
-        $("#output").append("<p>Starting...</p>");
+  for (var i = 2; i <= Object.keys(shares).length; i++) {
+    sum = sum.add(shares[i])
+  }   
+  
+  return sum;
+}
 
-        const data = jiff_instance.share(input);
+function MPC(input) {
+  $("#sumButton").attr("disabled", true);
+  $("#output").append("<p>Starting...</p>");
 
-        const totalSum = sumShares(data);
+  const data = jiff_instance.share(input);
 
-        jiff_instance.open(totalSum).then(handleResult);
-      }
+  const totalSum = sumShares(data);
 
-      function handleResult(results) {
+  jiff_instance.open(totalSum).then(handleResult);
+}
 
-        for(var i = 0; i < results.length; i++) {
-          if(results[i] == null) continue;
-          $("#res"+i).html(results[i]);
-        }
+function handleResult(results) {
 
-        $("#sumButton").attr("disabled", false);
-      }
+  for(var i = 0; i < results.length; i++) {
+    if(results[i] == null) continue;
+    $("#res"+i).html(results[i]);
+  }
 
-      function handleError() {
-        console.log("Error in open_all");
-      }
+  $("#sumButton").attr("disabled", false);
+}
+
+function handleError() {
+  console.log("Error in open_all");
+}
+
+function openTab(event, id) {
 
 
+  // $(id).show();
+
+  if (id === 'binaryOption') {
+    $('#binaryOption').show();
+    $('#averageOption').hide();
+  } else {
+    $('#averageOption').show();
+    $('#binaryOption').hide();
+
+  }
+}
 
 
 // var party_count = process.argv[3];

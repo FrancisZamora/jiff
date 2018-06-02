@@ -32,13 +32,17 @@
     <div class="card" id="titleCard">
       <h1 id="title">JIFF</h1>
       <h2 id="subtitle">a differential privacy demo</h2>
-      <div class="row connect">
-        <div class="col">
-          <label for="computation_id">Computation ID </label><br/><input id="computation_id"></input><br/><br/>
-        </div>
-        <div class="col">
-          <label for="count">Party Count </label> <br/><input id="count" pattern="[0-9]*"> &nbsp; 
-        </div>
+      <div class="row">
+        <!-- <div class="form-group"> -->
+          <div class="col-xs-offset-3 col-xs-6 col-md-offset-4 col-md-4">
+            <label for="computation_id">Computation ID </label><br/><input id="computation_id"></input><br/><br/>
+          </div>
+        <!-- </div> -->
+        <!-- <div class="form-group"> -->
+          <div class="col-xs-offset-3 col-xs-6 col-md-offset-4 col-md-4">
+            <label for="count">Party Count </label> <br/><input id="count" pattern="[0-9]*"> &nbsp; 
+          </div>
+        <!-- </div> -->
         </br>
       </div>
         <button class="btn" id="connectButton" onclick="connect();">Connect</button>
@@ -47,12 +51,31 @@
     
 
     <div class="card" id="inputCard">
-      <h1>Computing an Average</h1>
+
+      <div class="tab">
+        <button onclick="openTab(event, 'binaryOption')" class="tablinks" id="defaultOpen">Binary</button>
+        <button onclick="openTab(event, 'averageOption')" class="tablinks">Average</button>
+      </div>
+
+      <div id="binaryOption" class="toggleOption">
+        <h1>Silent Voters</h1>
+        <div>
+            <label><input id="input" type="text" name="input"/> 
+            <br/>
+            <button onclick="submit()" id="voteButton" disabled="disabled">submit</button>
+          </div>
+      </div>
+
+      <div id="averageOption" class="toggleOption">
+        <h1>Computing an Average</h1>
         <div>
           <label><input id="input" type="text" name="input"/> 
           <br/>
           <button onclick="submit()" id="voteButton" disabled="disabled">submit</button>
         </div>
+      </div>
+
+  
       <div id="output"></div>
     </div>
 
