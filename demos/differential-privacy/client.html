@@ -60,10 +60,11 @@
       <div id="binaryOption" class="toggleOption">
         <h1>Silent Voters</h1>
         <div>
-            <label><input id="input" type="text" name="input"/> 
-            <br/>
-            <button onclick="submit()" id="voteButton" disabled="disabled">submit</button>
-          </div>
+          <label><input id="hillary" type="radio"/> Hillary Clinton</label> &nbsp; <span id="res0"></span><br/>
+          <label><input id="trump" type="radio"/> Donald Trump</label> &nbsp; <span id="res1"></span><br/>
+          <br/>
+          <button onclick="vote()" id="voteButton" disabled="disabled">Vote</button>        
+        </div>
       </div>
 
       <div id="averageOption" class="toggleOption">
@@ -71,7 +72,7 @@
         <div>
           <label><input id="input" type="text" name="input"/> 
           <br/>
-          <button onclick="submit()" id="voteButton" disabled="disabled">submit</button>
+          <button onclick="submit()" id="submitButton" disabled="disabled">submit</button>
         </div>
       </div>
 

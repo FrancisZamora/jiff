@@ -34,13 +34,46 @@ function connect() {
   }
 }
 
+
+function MPCVote(inputs) {
+  $("#sumButton").attr("disabled", true);
+  $("#output").append("<p>Starting...</p>");
+
+  const votes = jiff_instance.share(inputs[0]);
+  const voteSum = sumShares(votes);
+
+
+  jiff_instance.open(voteSum).then(function(value) {
+    console.log(value);
+  });
+}
+
+
+
+
+function vote() {
+
+  let vote = 0;
+  if (document.getElementById('hillary').checked) {
+    vote++;
+  }
+
+  const noise = generateNoise();
+
+
+  MPCVote(vote + noise);
+  
+
+}
+
+
+
 function submit() {
 
   const value = parseInt(document.getElementById('input').value);
   // const noise = generateNoise();
 
   const noisyData = value;
-  console.log(noisyData)
 
   MPC(noisyData);
   
