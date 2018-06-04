@@ -1,76 +1,70 @@
 <html>
   <head>
     <title>Vote under MPC</title>
-    <style>
 
-    </style>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/lib/sodium.js"></script>
-    <script src="/lib/jiff-client.js"></script>
-    <script src="./gaussian.js"></script>
-    <script src="./party.js"></script>
-    <script src="./display.js"></script>
-    <script src="./big-number.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" type="text/javascript"></script>
 
-    <script src="/lib/ext/jiff-client-bignumber.js"></script>
-    <script src="/lib/ext/jiff-client-fixedpoint.js"></script>
+    <script src="/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="/lib/sodium.js" type="text/javascript"></script>
+
+    <script src="/static/gaussian.js" type="text/javascript"></script>
+    <script src="/static/display.js" type="text/javascript"></script>
+    <script src="/bignumber.js/bignumber.min.js" type="text/javascript"></script>
+
+    <script src="/lib/jiff-client.js" type="text/javascript"></script>
+    <script src="/lib/ext/jiff-client-bignumber.js" type="text/javascript"></script>
+    <script src="/lib/ext/jiff-client-fixedpoint.js" type="text/javascript"></script>
+    
+    <script src="/demos/differential-privacy/client.js" type="text/javascript"></script>
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Timmana" rel="stylesheet">
-
-
-    <link rel="stylesheet" href="./style.css">
-
-
-    
-
+    <link rel="stylesheet" href="/static/style.css">
   </head>
+
   <body>
-    <div class="card" id="titleCard">
-      <h1 id="title">JIFF</h1>
-      <h2 id="subtitle">a differential privacy demo</h2>
-      <div class="row connect">
-        <div class="col">
-          <label for="computation_id">Computation ID </label><br/><input id="computation_id"></input><br/><br/>
+    <div style="max-width: 600px;">
+      <div class="card" id="titleCard">
+        <h1 id="title">JIFF</h1>
+        <h2 id="subtitle">a differential privacy demo</h2>
+        <div class="row connect">
+          <div class="col">
+            <label for="computation_id">Computation ID </label><br/><input id="computation_id" value="test-dp"/><br/><br/>
+          </div>
+          <div class="col">
+            <label for="count">Party Count </label> <br/><input id="count" pattern="[0-9]*" value="2"/> &nbsp; 
+          </div>
+          </br>
         </div>
-        <div class="col">
-          <label for="count">Party Count </label> <br/><input id="count" pattern="[0-9]*"> &nbsp; 
-        </div>
-        </br>
-      </div>
         <button class="btn" id="connectButton" onclick="connect();">Connect</button>
-  
-    </div>
-    
+        <div id="output" style="margin:10px; padding: 20px; border:1px dashed black; display: none;"></div>
+      </div>
 
-    <div class="card" id="inputCard">
-      <h1>Computing an Average</h1>
+      <div class="card" id="inputCard">
+        <h1>Computing an Average</h1>
         <div>
-          <label><input id="input" type="text" name="input"/> 
-          <br/>
-          <button onclick="submit()" id="voteButton" disabled="disabled">submit</button>
+          <label><input id="input" type="text" name="input"/> &nbsp; &nbsp;
+          <button onclick="submit()" id="voteButton" class="btn" disabled="disabled">submit</button>
         </div>
-      <div id="output"></div>
-    </div>
+      </div>
 
-    <div class="card" id="output graphCard">
-      <div class="graphBorder">
-        <div class="graphInline">
-          <div class="canvasDiv" >
-            <canvas id="chart1"></canvas>
+      <div class="card" id="output graphCard">
+        <div class="graphBorder">
+          <div class="graphInline">
+            <div class="canvasDiv" >
+              <canvas id="chart1"></canvas>
+            </div>
+          </div>
+          <div class="graphInline spacingSeparator"></div>
+          <div class="graphInline">
+            <div class="canvasDiv">
+              <canvas id="chart2"></canvas>
+            </div>
           </div>
         </div>
-      <div class="graphInline spacingSeparator"></div>
-      <div class="graphInline">
-        <div class="canvasDiv">
-          <canvas id="chart2"></canvas>
-        </div>
       </div>
     </div>
-  </div>
-
   </body>
 </html>
