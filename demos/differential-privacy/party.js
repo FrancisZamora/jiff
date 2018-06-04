@@ -131,20 +131,7 @@ function handleError() {
   console.log("Error in open_all");
 }
 
-function openTab(event, id) {
 
-
-  // $(id).show();
-
-  if (id === 'binaryOption') {
-    $('#binaryOption').show();
-    $('#averageOption').hide();
-  } else {
-    $('#averageOption').show();
-    $('#binaryOption').hide();
-
-  }
-}
 
 
 // var party_count = process.argv[3];

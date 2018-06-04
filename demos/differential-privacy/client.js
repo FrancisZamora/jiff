@@ -74,6 +74,18 @@ function calcVariance() {
   return factor.pow(2).div(n).toNumber();
 }
 
+function openTab(event, id) {
+
+  if (id === 'binaryOption') {
+    $('#binaryOption').show();
+    $('#averageOption').hide();
+  } else {
+    $('#averageOption').show();
+    $('#binaryOption').hide();
+
+  }
+}
+
 function MPC(input) {
   $("#sumButton").attr("disabled", true);
   $("#output").append("<p>Starting...</p>");

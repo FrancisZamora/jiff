@@ -2,18 +2,33 @@
   <head>
     <title>Vote under MPC</title>
 
-      .centerDivs {
-        vertical-align: middle; 
-        text-align: center;
-      }
-    </style>
+    <script src="https://code.jquery.com/jquery-1.11.1.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" type="text/javascript"></script>
+
+    <script src="/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="/lib/sodium.js" type="text/javascript"></script>
+
+    <script src="/static/gaussian.js" type="text/javascript"></script>
+    <script src="/static/display.js" type="text/javascript"></script>
+    <script src="/bignumber.js/bignumber.min.js" type="text/javascript"></script>
+
+    <script src="/lib/jiff-client.js" type="text/javascript"></script>
+    <script src="/lib/ext/jiff-client-bignumber.js" type="text/javascript"></script>
+    <script src="/lib/ext/jiff-client-fixedpoint.js" type="text/javascript"></script>
+    
+    <script src="/demos/differential-privacy/client.js" type="text/javascript"></script>
+
+
+
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/lib/sodium.js"></script>
     <script src="/lib/jiff-client.js"></script>
     <script src="./gaussian.js"></script>
-    <script src="./party.js"></script>
+
+    <script src="./client.js"></script>
+    <!-- <script src="./party.js"></script> -->
     <script src="./display.js"></script>
     <script src="./big-number.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js" type="text/javascript"></script>
@@ -22,6 +37,10 @@
     <script src="/socket.io/socket.io.js" type="text/javascript"></script>
     <script src="/lib/sodium.js" type="text/javascript"></script>
 
+    <link href="https://fonts.googleapis.com/css?family=Timmana" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    
   </head>
 
   <body>
