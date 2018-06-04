@@ -111,3 +111,39 @@ function handleResult(result) {
   $("#sumButton").attr("disabled", false);
 }
 
+
+
+
+function vote() {
+
+  let vote = 0;
+  if (document.getElementById('hillary').checked) {
+    vote++;
+  }
+
+  const noise = generateNoise();
+
+
+  MPCVote(vote + noise);
+  
+
+}
+
+
+
+function MPCVote(inputs) {
+  $("#sumButton").attr("disabled", true);
+  $("#output").append("<p>Starting...</p>");
+
+  const votes = jiff_instance.share(inputs[0]);
+  const voteSum = sumShares(votes);
+
+
+  jiff_instance.open(voteSum).then(function(value) {
+    console.log(value);
+  });
+// }
+
+  initGraph( {raw:{x:jiff_instance.id, y:value},noisy:{x:jiff_instance.id, y:noisyData}} );
+}
+
