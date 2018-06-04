@@ -66,9 +66,11 @@ body {
   height: 300px;
 }
 
-canvas {
+/* not working
+ canvas {
   width: 400;
   height: 400;
+<<<<<<< HEAD
 }
 
 
@@ -125,3 +127,6 @@ input.right {
 	display: inline-block;
 	
 } */
+=======
+} */
+>>>>>>> origin/69_MM_GraphsForDPDemo

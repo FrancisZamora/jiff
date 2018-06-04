@@ -46,8 +46,10 @@ function MPCVote(inputs) {
   jiff_instance.open(voteSum).then(function(value) {
     console.log(value);
   });
-}
+// }
 
+  initGraph( {raw:{x:jiff_instance.id, y:value},noisy:{x:jiff_instance.id, y:noisyData}} );
+}
 
 
 
