@@ -50,10 +50,10 @@ function connect() {
   }
 }
 
-function submit() {
-  var value = parseInt(document.getElementById('input').value);
-  MPC(value);
-}
+// function submit() {
+//   var value = parseInt(document.getElementById('input').value);
+//   MPC(value);
+// }
 
 function generateNoise() {
   const variance = calcVariance();
@@ -63,6 +63,20 @@ function generateNoise() {
   console.log(noise.toString());
   return noise;
 }
+
+// function generateNoise(mean) {
+//   const variance = calcVariance(0.5, 1, jiff_instance.party_count);
+
+//   const distribution = gaussian(mean, variance);
+
+//   const rand = distribution.ppf(Math.random());
+
+//   return rand;
+// }
+
+// function calcVariance(epsilon, del, n) {
+//   return ((2 * Math.log(1.25/del)) * (((2 * n) - 1) / (epsilon * epsilon))) / n;
+// }
 
 
 function calcVariance() {
@@ -86,24 +100,24 @@ function openTab(event, id) {
   }
 }
 
-function MPC(input) {
-  $("#sumButton").attr("disabled", true);
-  $("#output").append("<p>Starting...</p>");
+function MPCAverage(input) {
+  // $("#sumButton").attr("disabled", true);
+  // $("#output").append("<p>Starting...</p>");
 
-  var shares = jiff_instance.share(input);
+  // var shares = jiff_instance.share(input);
 
-  var sum = shares[1];
-  for (var i = 2; i <= jiff_instance.party_count; i++)
-    sum = sum.sadd(shares[i]);
+  // var sum = shares[1];
+  // for (var i = 2; i <= jiff_instance.party_count; i++)
+  //   sum = sum.sadd(shares[i]);
 
-  var noise_shares = jiff_instance.share(generateNoise());
-  var noise = noise_shares[1];
-  for (var i = 2; i <= jiff_instance.party_count; i++)
-    noise = noise.sadd(noise_shares[i]);
+  // var noise_shares = jiff_instance.share(generateNoise());
+  // var noise = noise_shares[1];
+  // for (var i = 2; i <= jiff_instance.party_count; i++)
+  //   noise = noise.sadd(noise_shares[i]);
 
-  var noisy_sum = sum.sadd(noise);
-  jiff_instance.open(noisy_sum).then(handleResult);
-  noise.open(function(v) { console.log(v.toString()); } );
+  // var noisy_sum = sum.sadd(noise);
+  // jiff_instance.open(noisy_sum).then(handleResult);
+  // noise.open(function(v) { console.log(v.toString()); } );
 }
 
 function handleResult(result) {
@@ -121,29 +135,50 @@ function vote() {
     vote++;
   }
 
-  const noise = generateNoise();
+  const noise = generateNoise(0);
+  console.log(noise)
+
+  MPCVote(noise.plus(vote));
+  
+
+}
 
 
-  MPCVote(vote + noise);
+function submit() {
+
+  const value = parseInt(document.getElementById('input').value);
+
+  // const noisyData = value;
+  noise = generateNoise(3.0);
+
+  MPCAverage(noise + value);
   
 
 }
 
 
 
-function MPCVote(inputs) {
+function MPCVote(vote) {
   $("#sumButton").attr("disabled", true);
   $("#output").append("<p>Starting...</p>");
 
-  const votes = jiff_instance.share(inputs[0]);
+  const votes = jiff_instance.share(vote);
   const voteSum = sumShares(votes);
 
 
   jiff_instance.open(voteSum).then(function(value) {
-    console.log(value);
+    console.log(value.toString());
   });
-// }
+}
 
-  initGraph( {raw:{x:jiff_instance.id, y:value},noisy:{x:jiff_instance.id, y:noisyData}} );
+
+function sumShares(shares) {
+  var sum = shares["1"];
+
+  for (var i = 2; i <= Object.keys(shares).length; i++) {
+    sum = sum.add(shares[i])
+  }   
+  
+  return sum;
 }
 
