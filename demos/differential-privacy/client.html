@@ -1,7 +1,6 @@
 <html>
   <head>
     <title>Vote under MPC</title>
-    <style>
 
       .centerDivs {
         vertical-align: middle; 
@@ -17,18 +16,14 @@
     <script src="./party.js"></script>
     <script src="./display.js"></script>
     <script src="./big-number.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" type="text/javascript"></script>
 
-    <script src="/lib/ext/jiff-client-bignumber.js"></script>
-    <script src="/lib/ext/jiff-client-fixedpoint.js"></script>
-
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Timmana" rel="stylesheet">
-
-
-    <link rel="stylesheet" href="./style.css">
+    <script src="/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="/lib/sodium.js" type="text/javascript"></script>
 
   </head>
+
   <body>
     <div class="card" id="titleCard">
       <h1 id="title">JIFF</h1>
@@ -47,9 +42,8 @@
         </br>
       </div>
         <button class="btn" id="connectButton" onclick="connect();">Connect</button>
-  
-    </div>
-    
+        <div id="output" style="margin:10px; padding: 20px; border:1px dashed black; display: none;"></div>
+      </div>
 
     <div class="card" id="inputCard">
 
