@@ -1,6 +1,5 @@
 var epsilon = 0.5;
-var delta = 1; 
-var max_input = 4;
+var delta = 1;
 var jiff_instance;
 
 function connect() {
@@ -47,16 +46,25 @@ function connect() {
     $("#output").append("<p>Waiting for all parties!</p>");
 
     $('#inputCard').show();
+    $('#binaryOption').hide();
+    $('#averageOption').hide();
   }
 }
 
-function submit() {
+function average() {
   var value = parseInt(document.getElementById('input').value);
-  MPC(value);
+  MPCAvg(value);
 }
 
-function generateNoise() {
-  const variance = calcVariance();
+function vote() {
+  if(document.getElementById('hillary').checked)
+    MPCVote(1);
+  else
+    MPCVote(0);
+}
+
+function generateNoise(max_input) {
+  const variance = calcVariance(max_input);
   const distribution = gaussian(0, variance);
   const rand = distribution.ppf(Math.random());
   var noise = jiff_instance.BigNumber(rand.toString());
@@ -65,7 +73,7 @@ function generateNoise() {
 }
 
 
-function calcVariance() {
+function calcVariance(max_input) {
   var n = jiff_instance.BigNumber(jiff_instance.party_count);
   var sensitivty = n.times(2).minus(1).sqrt().times(max_input);
   var log1 = Math.log(1.25 / delta)/Math.log(2);
@@ -75,7 +83,6 @@ function calcVariance() {
 }
 
 function openTab(event, id) {
-
   if (id === 'binaryOption') {
     $('#binaryOption').show();
     $('#averageOption').hide();
@@ -86,64 +93,46 @@ function openTab(event, id) {
   }
 }
 
-function MPC(input) {
-  $("#sumButton").attr("disabled", true);
+function sumShares(shares) {
+  var sum = shares[1];
+  for(var i = 2; i <= jiff_instance.party_count; i++)
+    sum = sum.sadd(shares[i]);
+  return sum;
+}
+
+function MPCAvg(input) {
+  $("#submitButton").attr("disabled", true);
   $("#output").append("<p>Starting...</p>");
 
   var shares = jiff_instance.share(input);
+  var sum = sumShares(shares);
 
-  var sum = shares[1];
-  for (var i = 2; i <= jiff_instance.party_count; i++)
-    sum = sum.sadd(shares[i]);
-
-  var noise_shares = jiff_instance.share(generateNoise());
-  var noise = noise_shares[1];
-  for (var i = 2; i <= jiff_instance.party_count; i++)
-    noise = noise.sadd(noise_shares[i]);
+  var noise_shares = jiff_instance.share(generateNoise(4));
+  var noise = sumShares(noise_shares);
 
   var noisy_sum = sum.sadd(noise);
   jiff_instance.open(noisy_sum).then(handleResult);
-  noise.open(function(v) { console.log(v.toString()); } );
+}
+
+function MPCVote(input) {
+  $("#voteButton").attr("disabled", true);
+  $("#output").append("<p>Starting...</p>");
+
+  const votes = jiff_instance.share(input);
+  const voteSum = sumShares(votes);
+  
+  const noises = jiff_instance.share(generateNoise(1));
+  const noiseSum = sumShares(noises);
+
+  const result = voteSum.sadd(noiseSum);
+
+  jiff_instance.open(result).then(handleResult);
+
+  //initGraph( {raw:{x:jiff_instance.id, y:value},noisy:{x:jiff_instance.id, y:noisyData}} );
 }
 
 function handleResult(result) {
   $("#output").append("<p>Result: "+result.div(jiff_instance.party_count).toString()+"</p>");
-  $("#sumButton").attr("disabled", false);
+  $("#submitButton").attr("disabled", false);
+  $("#voteButton").attr("disabled", false);
 }
-
-
-
-
-function vote() {
-
-  let vote = 0;
-  if (document.getElementById('hillary').checked) {
-    vote++;
-  }
-
-  const noise = generateNoise();
-
-
-  MPCVote(vote + noise);
-  
-
-}
-
-
-
-function MPCVote(inputs) {
-  $("#sumButton").attr("disabled", true);
-  $("#output").append("<p>Starting...</p>");
-
-  const votes = jiff_instance.share(inputs[0]);
-  const voteSum = sumShares(votes);
-
-
-  jiff_instance.open(voteSum).then(function(value) {
-    console.log(value);
-  });
-// }
-
-  initGraph( {raw:{x:jiff_instance.id, y:value},noisy:{x:jiff_instance.id, y:noisyData}} );
-}
-
