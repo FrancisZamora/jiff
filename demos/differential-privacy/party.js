@@ -70,17 +70,6 @@ function vote() {
 
 
 
-function submit() {
-
-  const value = parseInt(document.getElementById('input').value);
-  // const noise = generateNoise();
-
-  const noisyData = value;
-
-  MPC(noisyData);
-  
-
-}
 
 function generateNoise() {
   const variance = calcVariance(0.5, 1, jiff_instance.party_count);

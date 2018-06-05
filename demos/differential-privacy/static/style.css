@@ -9,6 +9,11 @@ h1 {
   text-align: center;
 }
 
+.centerDivs {
+  vertical-align: middle; 
+  text-align: center;
+}
+
 .card {
   margin: 40px;
   padding: 5%;
@@ -26,9 +31,9 @@ input {
   font-size: 80px;
 }
 
-/* .connect {
+.connect {
   text-align: center;
-} */
+}
 
 body {
   margin: 50px;
@@ -42,6 +47,9 @@ body {
   display: none;
 }
 
+#averageOption {
+  display: none;
+}
 
 /* GRAPH */
 
@@ -63,7 +71,63 @@ body {
   height: 300px;
 }
 
-canvas {
+/* not working
+ canvas {
   width: 400;
   height: 400;
 }
+
+
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Input field alignment */
+/* .column_center {
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  padding: 20px;  
+  color: white;
+  
+}
+
+input.left {
+  width: 260px;
+  height: 50px;
+  margin: 0 50px 0 0;
+  padding: 0px;
+}
+
+input.right {
+  width: 260px;
+  height: 50px;
+  padding: 0px;
+}
+
+.formtext_left{
+	color: #444;
+	font-size: 12px;
+	text-align: left;
+	width: 260px;
+	margin: 0 50px 10px 0;
+	display: inline-block;
+	
+}
+
+.formtext_right{
+	color: #444;
+	font-size: 12px;
+	text-align: left;
+	width: 260px;
+	margin: 0 0 10px 0;
+	display: inline-block;
+	
+} */

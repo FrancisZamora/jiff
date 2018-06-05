@@ -72,7 +72,6 @@ function generateNoise(max_input) {
   return noise;
 }
 
-
 function calcVariance(max_input) {
   var n = jiff_instance.BigNumber(jiff_instance.party_count);
   var sensitivty = n.times(2).minus(1).sqrt().times(max_input);
@@ -89,7 +88,6 @@ function openTab(event, id) {
   } else {
     $('#averageOption').show();
     $('#binaryOption').hide();
-
   }
 }
 
