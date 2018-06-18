@@ -48,16 +48,24 @@ var dual = { "add": "+", "sub": "-", "mult": "*", "xor": "^", "div": "/" };
 
 // Entry Point
 function run_test(computation_id, operation, callback) {
-  // Generate Numbers
-  for (var i = 0; i < 20; i++) {
-    var m = operation == "xor" ? 2 : Zp;
-    m = operation == "div" ? new BigNumber(2).pow(15).minus(1).floor() : m;
-    var o = operation == "div" ? 1 : 0; // ensure not to divide by zero
-    var num1 = BigNumber.random().times(Zp).floor().mod(m);
-    var num2 = BigNumber.random().times(Zp).floor().mod(m).plus(o);
-    var num3 = BigNumber.random().times(Zp).floor().mod(m).plus(o);
-    tests[i] = [num1, num2, num3];
-  }
+  // Generate Numbers (big number)
+  // for (var i = 0; i < 20; i++) {
+  //   var m = operation == "xor" ? 2 : Zp;
+  //   m = operation == "div" ? new BigNumber(2).pow(15).minus(1).floor() : m;
+  //   var o = operation == "div" ? 1 : 0; // ensure not to divide by zero
+  //   var num1 = BigNumber.random().times(Zp).floor().mod(m);
+  //   var num2 = BigNumber.random().times(Zp).floor().mod(m).plus(o);
+  //   var num3 = BigNumber.random().times(Zp).floor().mod(m).plus(o);
+  //   tests[i] = [num1, num2, num3];
+  // }
+
+    // Generating numbers
+    for (var i = 0; i < 20; i++) {
+        var num1 = Math.floor(Math.random() * 201) - 100;
+        var num2 = Math.floor(Math.random() * 201) - 100;
+        var num3 = Math.floor(Math.random() * 201) - 100;
+       tests[i] = [num1, num2, num3];
+    }
 
   // Assign values to global variables
   parties = tests[0].length;

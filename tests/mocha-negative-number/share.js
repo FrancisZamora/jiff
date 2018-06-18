@@ -14,11 +14,15 @@ var Zp = new BigNumber(32416190071);
 function run_test(computation_id, callback) {
   // Generate Numbers
   for (var i = 0; i < 30; i++) {
-    // Generate numbers
-    var num1 = BigNumber.random().times(Zp).floor();
-    var num2 = BigNumber.random().times(Zp).floor();
-    var num3 = BigNumber.random().times(Zp).floor();
-    var num4 = BigNumber.random().times(Zp).floor();
+    // Generate numbers. switched to Math 6/18, range -100 to 100
+    //var num1 = Math.random().times(Zp).floor();
+    //var num2 = Math.random().times(Zp).floor();
+    //var num3 = Math.random().times(Zp).floor();
+    //var num4 = Math.random().times(Zp).floor();
+      var num1 = Math.floor(Math.random() * 201) - 100;
+      var num2 = Math.floor(Math.random() * 201) - 100;
+      var num3 = Math.floor(Math.random() * 201) - 100;
+      var num4 = Math.floor(Math.random() * 201) - 100;
     
     // Generate thresholds
     var threshold = Math.ceil(Math.random() * 4);
