@@ -43,6 +43,7 @@
   "scripts": {
     "test": "./tests/mocha/test.sh",
     "test-bignumber": "./tests/mocha-bignumber/test.sh",
+    "test-negative": "./tests/mocha-negative-number/test.sh",
     "gen-docs": "./node_modules/.bin/jsdoc -c docs/jsdoc.conf.json"
   },
   "dependencies": {
