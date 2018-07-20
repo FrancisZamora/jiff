@@ -38,11 +38,17 @@ opt2.party_count = clique.length;
 opt2.party_id = opt2.party_id % clique.length;
 opt2.party_id = opt2.party_id == 0 ? clique.length : opt2.party_id;
 
-console.log(opt1);
+var hosts = {
+  1: "http://localhost:8081",
+  2: "http://localhost:8082",
+  3: "http://localhost:8083",
+  4: "http://localhost:8084"
+};
+var main_host = "http://localhost:8080";
 
 // Connect
-var all_instance = jiff.make_jiff("http://localhost:8080", computation_id, opt1);
-var clique_instance = jiff.make_jiff("http://localhost:808" + (rank + 1), computation_id, opt2);
+var all_instance = jiff.make_jiff(main_host, computation_id, opt1);
+var clique_instance = jiff.make_jiff(hosts[rank + 1], computation_id, opt2);
 
 // start clique computation
 clique_instance.wait_for([1, 2, 3], function() {
