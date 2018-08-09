@@ -121,10 +121,23 @@
       var in2 = datasets[1];
 
       var cc = concat([in1, in2]);
-      var opened = open(cc, jiff_instance);
 
-      console.log(opened);
+      var opened = [];
 
+      for (var i = 0; i < cc.length; i++) {
+        opened.push(Promise.join(cc[i]));
+      }
+
+      Promise.join(opened).then(function(resultShares) {
+
+        var resultOpened = [];
+
+        for (var i = 0; i < resultShares.length; i++) {
+          resultOpened.push(jiff_instance.open_all(resultShares[i]));
+        }
+
+        console.log(resultOpened);
+      });
     });
 
     console.log("Got here");
